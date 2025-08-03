@@ -1,6 +1,9 @@
 # ⚡ PV Operation — Sistema Completo
 
-Um sistema full stack para importação, processamento e visualização de dados da **ANEEL** usando:
+Este projeto foi desenvolvido como parte do **Desafio Fullstack – Usinas Fotovoltaicas (ANEEL)** para a vaga de **Desenvolvedor(a) Fullstack**.  
+O objetivo é demonstrar competências práticas em **Python (Flask)**, **React**, **APIs REST**, **MongoDB**, **Redis** e **Docker**, entregando uma aplicação completa para importação, processamento e análise de dados de usinas fotovoltaicas da ANEEL (~1.3GB).  
+O projeto contempla **integração entre frontend e backend**, **modelagem de dados**, **consumo de APIs**, **filtros dinâmicos**, **gráficos interativos** e **mapas georreferenciados**, alinhado aos requisitos técnicos da vaga.
+
 - 🔹 **Backend:** Flask + MongoDB + Redis  
 - 🔹 **Frontend:** React  
 - 🔹 **Orquestração:** Docker Compose  
@@ -35,11 +38,45 @@ PVOperation_Desafio/
 
 
 📌 Funcionalidades
-✅ Importação massiva de dados CSV da ANEEL
+✅ Importação massiva de dados CSV (~1.3GB) da ANEEL
 ✅ Armazenamento otimizado em MongoDB
 ✅ Cache em Redis para respostas rápidas
-✅ Interface responsiva e moderna em React
-✅ Ambiente pronto via Docker Compose
+✅ API REST em Flask com filtros dinâmicos
+✅ Tabela paginada e responsiva no Frontend React
+✅ Gráficos interativos (potência por estado, usinas por distribuidora)
+✅ Mapa georreferenciado das usinas (Leaflet)
+✅ Orquestração completa via Docker Compose
+
+📌 Desafio Proposto
+Parte 1 – Backend (Python / Flask)
+
+Importar CSV e salvar em MongoDB.
+
+API REST com endpoints:
+
+/usinas: listar empreendimentos (paginações + filtros).
+
+/estatisticas: potência total por estado e distribuidora.
+
+Boas práticas em Python e manipulação de grandes volumes de dados.
+
+Parte 2 – Frontend (React)
+
+Consumir API do backend.
+
+Tabela paginada com filtros dinâmicos (estado, município, distribuidora, titular).
+
+Dashboard com gráficos (barras e pizza).
+
+Mapa interativo com coordenadas dos empreendimentos.
+
+Parte 3 – Extra (DevOps)
+
+Dockerfile para backend e frontend.
+
+docker-compose.yml para rodar tudo junto.
+
+README com instruções.
 
 👨‍💻 Autor
 Rafael Steffens — LinkedIn
