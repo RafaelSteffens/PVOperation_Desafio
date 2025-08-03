@@ -1,0 +1,78 @@
+services:
+  backendpvoperation:
+    build: ./BackendPVOperation
+    container_name: flask-app
+    command: python run.py
+    volumes:
+      - ./BackendPVOperation:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      mongo-server:
+        condition: service_healthy
+      redis-server:
+        condition: service_healthy
+    environment:
+      FLASK_ENV: development
+      MONGO_URI: >
+        mongodb://mongo-server:27017/bdaneel
+        ?connectTimeoutMS=60000
+        &socketTimeoutMS=60000
+        &maxPoolSize=50
+        &waitQueueTimeoutMS=60000
+        &serverSelectionTimeoutMS=60000
+      REDIS_URL: redis://redis-server:6379/0
+
+  frontendpvoperation:
+    build:
+      context: ./FrontendPVOperation
+      dockerfile: Dockerfile
+    container_name: react-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./FrontendPVOperation:/app
+      - node_modules:/app/node_modules
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backendpvoperation
+
+
+
+
+
+  redis-server:
+    image: redis:latest
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongo-server:
+    image: mongo:5.0
+    container_name: mongo-server
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    mem_limit: 2g
+    cpus: 1.0
+
+
+volumes:
+  node_modules:
