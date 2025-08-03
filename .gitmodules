@@ -1,6 +1,6 @@
 [submodule "BackendPVOperation"]
 	path = BackendPVOperation
 	url = https://github.com/RafaelSteffens/BackendPVOperation.git
-[submodule "FrontendPVOperationm"]
-	path = FrontendPVOperationm
+[submodule "FrontendPVOperation"]
+	path = FrontendPVOperation
 	url = https://github.com/RafaelSteffens/FrontendPVOperation.git
