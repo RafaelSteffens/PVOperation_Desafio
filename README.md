@@ -47,36 +47,26 @@ PVOperation_Desafio/
 ✅ Mapa georreferenciado das usinas (Leaflet)
 ✅ Orquestração completa via Docker Compose
 
-📌 Desafio Proposto
-Parte 1 – Backend (Python / Flask)
+# 📌 Desafio Proposto
 
-Importar CSV e salvar em MongoDB.
+### Parte 1 – Backend (Python / Flask)
+- Importar **CSV** e salvar em **MongoDB**.  
+- Criar **API REST** com endpoints:
+  - `/usinas`: listar empreendimentos (**paginação + filtros**).
+  - `/estatisticas`: potência total por **estado** e **distribuidora**.  
+- Utilizar **boas práticas em Python** e suportar **grandes volumes de dados**.
 
-API REST com endpoints:
+### Parte 2 – Frontend (React)
+- Consumir a API do backend.  
+- Exibir **tabela paginada** com filtros dinâmicos (*estado, município, distribuidora, titular*).  
+- Criar **dashboard** com gráficos de **barras** e **pizza**.  
+- Exibir **mapa interativo** com coordenadas dos empreendimentos.
 
-/usinas: listar empreendimentos (paginações + filtros).
+### Parte 3 – Extra (DevOps)
+- Criar **Dockerfile** para backend e frontend.  
+- Configurar **docker-compose.yml** para rodar tudo junto.  
+- Elaborar **README** com instruções de uso.
 
-/estatisticas: potência total por estado e distribuidora.
-
-Boas práticas em Python e manipulação de grandes volumes de dados.
-
-Parte 2 – Frontend (React)
-
-Consumir API do backend.
-
-Tabela paginada com filtros dinâmicos (estado, município, distribuidora, titular).
-
-Dashboard com gráficos (barras e pizza).
-
-Mapa interativo com coordenadas dos empreendimentos.
-
-Parte 3 – Extra (DevOps)
-
-Dockerfile para backend e frontend.
-
-docker-compose.yml para rodar tudo junto.
-
-README com instruções.
 
 👨‍💻 Autor
 Rafael Steffens — LinkedIn
