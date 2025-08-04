@@ -1,10 +1,10 @@
+version: "3.9"
+
 services:
   backendpvoperation:
     build: ./BackendPVOperation
     container_name: flask-app
     command: python run.py
-    volumes:
-      - ./BackendPVOperation:/app
     ports:
       - "5000:5000"
     depends_on:
@@ -13,14 +13,8 @@ services:
       redis-server:
         condition: service_healthy
     environment:
-      FLASK_ENV: development
-      MONGO_URI: >
-        mongodb://mongo-server:27017/bdaneel
-        ?connectTimeoutMS=60000
-        &socketTimeoutMS=60000
-        &maxPoolSize=50
-        &waitQueueTimeoutMS=60000
-        &serverSelectionTimeoutMS=60000
+      FLASK_ENV: production  # ⬅️ Para melhor performance na demo
+      MONGO_URI: mongodb://mongo-server:27017/bdaneel?connectTimeoutMS=5000&socketTimeoutMS=5000&maxPoolSize=200&waitQueueTimeoutMS=1000&serverSelectionTimeoutMS=5000&readPreference=secondaryPreferred
       REDIS_URL: redis://redis-server:6379/0
 
   frontendpvoperation:
@@ -31,8 +25,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./FrontendPVOperation:/app
-      - node_modules:/app/node_modules
+      - node_modules:/app/node_modules  # ✅ Mantém apenas volume necessário
     stdin_open: true
     tty: true
     environment:
@@ -40,17 +33,13 @@ services:
     depends_on:
       - backendpvoperation
 
-
-
-
-
   redis-server:
     image: redis:latest
     container_name: redis-server
     ports:
       - "6379:6379"
     volumes:
-      - ./redis-data:/data
+      - redis-volume:/data  # ✅ volume nomeado (não bind mount)
     command: ["redis-server", "--appendonly", "yes"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -64,15 +53,16 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./mongo-data:/data/db
+      - mongo-volume:/data/db  # ✅ volume nomeado (melhor performance)
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       timeout: 5s
       retries: 5
-    mem_limit: 2g
-    cpus: 1.0
-
+    mem_limit: 4g
+    cpus: 2.0
 
 volumes:
   node_modules:
+  redis-volume:
+  mongo-volume:
